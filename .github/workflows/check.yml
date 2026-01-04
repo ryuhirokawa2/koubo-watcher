@@ -1,8 +1,8 @@
-name: koubo check
+name: Check AC Rhythm Game Contests
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # 毎日9時(JST)
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -17,9 +17,11 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          pip install requests beautifulsoup4
 
       - name: Run checker
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python check_koubo.py
+        run: |
+          python check.py
